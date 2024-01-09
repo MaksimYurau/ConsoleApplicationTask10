@@ -30,7 +30,7 @@ int main() {
     std::cout << "Вектор1 умноженный на константу " << constant << ": (" << scaledVector.getX() << ", "
         << scaledVector.getY() << ")" << std::endl;
 
-    // a) Вывести вектора с заданным модулем
+    // a) Вывести вектора с заданным модулем (длиной вектора)
     const double targetMagnitude = 5.0;
     Vector::printVectorsWithMagnitude(vectors, arraySize, targetMagnitude);
 
@@ -44,6 +44,7 @@ int main() {
     std::cout << "Вектор с наибольшей суммой элементов: (" << maxSumVector.getX() << ", "
         << maxSumVector.getY() << ")" << std::endl;
 
+    std::cout << std::endl;
     system("pause");
     return 0;
 }

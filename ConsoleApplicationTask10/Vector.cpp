@@ -23,13 +23,3 @@ Vector Vector::subtract(const Vector& other) const {
 Vector Vector::multiplyByConstant(double constant) const {
     return Vector(x * constant, y * constant);
 }
-
-void Vector::printVectorsWithMagnitude(const Vector* vectors, int arraySize, double targetMagnitude) {
-    std::cout << "Vectors with magnitude " << targetMagnitude << ": " << std::endl;
-    for (int i = 0; i < arraySize; ++i) {
-        if (vectors[i].calculateMagnitude() == targetMagnitude) {
-            std::cout << "Vector " << i + 1 << ": (" << vectors[i].calculateMagnitude() << ", "
-                << vectors[i].calculateMagnitude() << ")" << std::endl;
-        }
-    }
-}

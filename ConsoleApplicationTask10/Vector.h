@@ -1,16 +1,18 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <iostream>
+#include <cmath>
+
 class Vector {
 private:
     double x;
     double y;
 
 public:
-    // Конструктор
+
     Vector(double x, double y) : x(x), y(y) {}
 
-    // Методы доступа к компонентам вектора
     double getX() const {
         return x;
     }
@@ -59,7 +61,18 @@ public:
         return maxSumVector;
     }
 
-    static void printVectorsWithMagnitude(const Vector* vectors, int arraySize, double targetMagnitude);
+    double getMagnitude() const {
+        return std::sqrt(x * x + y * y);
+    }
+
+    static void printVectorsWithMagnitude(const Vector* vectors, int arraySize, double targetMagnitude) {
+        for (int i = 0; i < arraySize; i++) {
+            double magnitude = vectors[i].getMagnitude();
+            if (std::abs(magnitude - targetMagnitude) < 0.0001) {
+                std::cout << "Вектор: (" << vectors[i].getX() << ", " << vectors[i].getY() << ")" << std::endl;
+            }
+        }
+    }
 };
 
 #endif // VECTOR_H
