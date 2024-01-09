@@ -24,32 +24,6 @@ Vector Vector::multiplyByConstant(double constant) const {
     return Vector(x * constant, y * constant);
 }
 
-Vector Vector::findVectorWithMaximumSum(const Vector* vectors, int arraySize) {
-    Vector result = vectors[0];
-
-    for (int i = 1; i < arraySize; ++i) {
-        if ((vectors[i].add(result)).calculateMagnitude() >
-            (result.add(vectors[i])).calculateMagnitude()) {
-            result = vectors[i];
-        }
-    }
-
-    return result;
-}
-
-Vector Vector::findVectorWithMinimumSum(const Vector* vectors, int arraySize) {
-    Vector result = vectors[0];
-
-    for (int i = 1; i < arraySize; ++i) {
-        if ((vectors[i].add(result)).calculateMagnitude() <
-            (result.add(vectors[i])).calculateMagnitude()) {
-            result = vectors[i];
-        }
-    }
-
-    return result;
-}
-
 void Vector::printVectorsWithMagnitude(const Vector* vectors, int arraySize, double targetMagnitude) {
     std::cout << "Vectors with magnitude " << targetMagnitude << ": " << std::endl;
     for (int i = 0; i < arraySize; ++i) {

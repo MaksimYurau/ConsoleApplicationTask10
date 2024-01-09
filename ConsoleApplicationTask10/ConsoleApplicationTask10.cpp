@@ -35,14 +35,14 @@ int main() {
     Vector::printVectorsWithMagnitude(vectors, arraySize, targetMagnitude);
 
     // b) Определить вектор с наибольшей суммой элементов
-    Vector maxSumVector = Vector::findVectorWithMaximumSum(vectors, arraySize);
-    std::cout << "Вектор с максимальной суммой элементов: (" << maxSumVector.getX() << ", "
-        << maxSumVector.getY() << ")" << std::endl;
-
-    // Определить вектор с наименьшей суммой элементов
     Vector minSumVector = Vector::findVectorWithMinimumSum(vectors, arraySize);
-    std::cout << "Вектор с минимальной суммой элементов: (" << minSumVector.getX() << ", "
+    Vector maxSumVector = Vector::findVectorWithMaximumSum(vectors, arraySize);
+
+    std::cout << "Вектор с наименьшей суммой элементов: (" << minSumVector.getX() << ", "
         << minSumVector.getY() << ")" << std::endl;
+
+    std::cout << "Вектор с наибольшей суммой элементов: (" << maxSumVector.getX() << ", "
+        << maxSumVector.getY() << ")" << std::endl;
 
     system("pause");
     return 0;
