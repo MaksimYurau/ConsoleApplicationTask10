@@ -1,61 +1,61 @@
 #include "Vector.h"
+#include <iostream>
 #include <cmath>
-#include <stdexcept>
 
-Vector::Vector(const std::vector<double>& values) : components(values) {}
+// Vector::Vector(double x_val, double y_val) : x(x_val), y(y_val) {}
 
-double Vector::getMagnitude() const {
-    double sumOfSquares = 0.0;
-    for (double component : components) {
-        sumOfSquares += component * component;
-    }
-    return std::sqrt(sumOfSquares);
+double Vector::calculateMagnitude() const {
+    return sqrt(x * x + y * y);
 }
 
-double Vector::dotProduct(const Vector& other) const {
-    if (components.size() != other.components.size()) {
-        throw std::invalid_argument("Vectors must have the same number of components.");
+double Vector::calculateDotProduct(const Vector& other) const {
+    return x * other.x + y * other.y;
+}
+
+Vector Vector::add(const Vector& other) const {
+    return Vector(x + other.x, y + other.y);
+}
+
+Vector Vector::subtract(const Vector& other) const {
+    return Vector(x - other.x, y - other.y);
+}
+
+Vector Vector::multiplyByConstant(double constant) const {
+    return Vector(x * constant, y * constant);
+}
+
+Vector Vector::findVectorWithMaximumSum(const Vector* vectors, int arraySize) {
+    Vector result = vectors[0];
+
+    for (int i = 1; i < arraySize; ++i) {
+        if ((vectors[i].add(result)).calculateMagnitude() >
+            (result.add(vectors[i])).calculateMagnitude()) {
+            result = vectors[i];
+        }
     }
 
-    double result = 0.0;
-    for (size_t i = 0; i < components.size(); i++) {
-        result += components[i] * other.components[i];
-    }
     return result;
 }
 
-Vector Vector::operator+(const Vector& other) const {
-    if (components.size() != other.components.size()) {
-        throw std::invalid_argument("Vectors must have the same number of components.");
+Vector Vector::findVectorWithMinimumSum(const Vector* vectors, int arraySize) {
+    Vector result = vectors[0];
+
+    for (int i = 1; i < arraySize; ++i) {
+        if ((vectors[i].add(result)).calculateMagnitude() <
+            (result.add(vectors[i])).calculateMagnitude()) {
+            result = vectors[i];
+        }
     }
 
-    std::vector<double> resultComponents(components.size());
-    for (size_t i = 0; i < components.size(); i++) {
-        resultComponents[i] = components[i] + other.components[i];
-    }
-    return Vector(resultComponents);
+    return result;
 }
 
-Vector Vector::operator-(const Vector& other) const {
-    if (components.size() != other.components.size()) {
-        throw std::invalid_argument("Vectors must have the same number of components.");
+void Vector::printVectorsWithMagnitude(const Vector* vectors, int arraySize, double targetMagnitude) {
+    std::cout << "Vectors with magnitude " << targetMagnitude << ": " << std::endl;
+    for (int i = 0; i < arraySize; ++i) {
+        if (vectors[i].calculateMagnitude() == targetMagnitude) {
+            std::cout << "Vector " << i + 1 << ": (" << vectors[i].calculateMagnitude() << ", "
+                << vectors[i].calculateMagnitude() << ")" << std::endl;
+        }
     }
-
-    std::vector<double> resultComponents(components.size());
-    for (size_t i = 0; i < components.size(); i++) {
-        resultComponents[i] = components[i] - other.components[i];
-    }
-    return Vector(resultComponents);
-}
-
-Vector Vector::operator*(double scalar) const {
-    std::vector<double> resultComponents(components.size());
-    for (size_t i = 0; i < components.size(); i++) {
-        resultComponents[i] = components[i] * scalar;
-    }
-    return Vector(resultComponents);
-}
-
-const std::vector<double>& Vector::getComponents() const {
-    return components;
 }

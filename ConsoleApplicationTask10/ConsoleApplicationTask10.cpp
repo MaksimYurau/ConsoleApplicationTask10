@@ -1,52 +1,49 @@
 ﻿#include "Vector.h"
 #include <iostream>
-#include <vector>
 
 int main() {
-    std::vector<Vector> vectors = {
-        Vector({1.0, 2.0, 3.0}),
-        Vector({-1.0, 0.0, 2.5}),
-        Vector({3.5, -2.0, 1.5})
-    };
+    setlocale(0, "ru");
 
-    double targetMagnitude = 5.0;
-    std::cout << "Vectors with magnitude " << targetMagnitude << ":" << std::endl;
-    for (const Vector& vector : vectors) {
-        if (vector.getMagnitude() == targetMagnitude) {
-            for (double component : vector.getComponents()) {
-                std::cout << component << " ";
-            }
-            std::cout << std::endl;
-        }
-    }
+    const int arraySize = 5;
+    Vector vectors[arraySize] = { Vector(1, 2), Vector(3, 4), Vector(5, 6), Vector(7, 8), Vector(9, 10) };
 
-    Vector maxSumVector = vectors[0];
-    Vector minSumVector = vectors[0];
-    double maxSum = vectors[0].getMagnitude();
-    double minSum = vectors[0].getMagnitude();
-    for (const Vector& vector : vectors) {
-        double sum = vector.getMagnitude();
-        if (sum > maxSum) {
-            maxSum = sum;
-            maxSumVector = vector;
-        }
-            if (sum < minSum) {
-                minSum = sum;
-                    minSumVector = vector;
-            }
-    }
+    // Вызов некоторых функций
+    double magnitude = vectors[0].calculateMagnitude();
+    std::cout << "Модуль (длина) первого вектора: " << magnitude << std::endl;
 
-    std::cout << "Vector with maximum sum of components: ";
-        for (double component : maxSumVector.getComponents()) {
-            std::cout << component << " ";
-        }
-    std::cout << std::endl;
+    Vector vector1(2, 3);
+    Vector vector2(4, 5);
 
-    std::cout << "Vector with minimum sum of components: ";
-    for (double component : minSumVector.getComponents()) {
-        std::cout << component << " ";
-    }
-    std::cout << std::endl;
+    double dotProduct = vector1.calculateDotProduct(vector2);
+    std::cout << "Скалярное произведение вектора1 и вектора2: " << dotProduct << std::endl;
 
+    Vector sumVector = vector1.add(vector2);
+    std::cout << "Сумма вектора1 и вектора2: (" << sumVector.getX() << ", "
+        << sumVector.getY() << ")" << std::endl;
+
+    Vector diffVector = vector1.subtract(vector2);
+    std::cout << "Сумма вектора1 и вектора2: (" << diffVector.getX() << ", "
+        << diffVector.getY() << ")" << std::endl;
+
+    double constant = 2.5;
+    Vector scaledVector = vector1.multiplyByConstant(constant);
+    std::cout << "Вектор1 умноженный на константу " << constant << ": (" << scaledVector.getX() << ", "
+        << scaledVector.getY() << ")" << std::endl;
+
+    // a) Вывести вектора с заданным модулем
+    const double targetMagnitude = 5.0;
+    Vector::printVectorsWithMagnitude(vectors, arraySize, targetMagnitude);
+
+    // b) Определить вектор с наибольшей суммой элементов
+    Vector maxSumVector = Vector::findVectorWithMaximumSum(vectors, arraySize);
+    std::cout << "Вектор с максимальной суммой элементов: (" << maxSumVector.getX() << ", "
+        << maxSumVector.getY() << ")" << std::endl;
+
+    // Определить вектор с наименьшей суммой элементов
+    Vector minSumVector = Vector::findVectorWithMinimumSum(vectors, arraySize);
+    std::cout << "Вектор с минимальной суммой элементов: (" << minSumVector.getX() << ", "
+        << minSumVector.getY() << ")" << std::endl;
+
+    system("pause");
     return 0;
 }

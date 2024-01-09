@@ -1,23 +1,39 @@
-#pragma once
-
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include <vector>
-
 class Vector {
 private:
-    std::vector<double> components;
+    double x;
+    double y;
 
 public:
-    Vector(const std::vector<double>& values);
+    // Конструктор
+    Vector(double x, double y) : x(x), y(y) {}
 
-    double getMagnitude() const;
-    double dotProduct(const Vector& other) const;
-    Vector operator+(const Vector& other) const;
-    Vector operator-(const Vector& other) const;
-    Vector operator*(double scalar) const;
-    const std::vector<double>& getComponents() const; // Добавленный метод
+    // Методы доступа к компонентам вектора
+    double getX() const {
+        return x;
+    }
+
+    double getY() const {
+        return y;
+    }
+
+    double calculateMagnitude() const;
+
+    double calculateDotProduct(const Vector& other) const;
+
+    Vector add(const Vector& other) const;
+
+    Vector subtract(const Vector& other) const;
+
+    Vector multiplyByConstant(double constant) const;
+
+    static Vector findVectorWithMaximumSum(const Vector* vectors, int arraySize);
+
+    static Vector findVectorWithMinimumSum(const Vector* vectors, int arraySize);
+
+    static void printVectorsWithMagnitude(const Vector* vectors, int arraySize, double targetMagnitude);
 };
 
 #endif // VECTOR_H
